@@ -27,7 +27,7 @@
             <td th:text="${item.name}"></td>
             <td th:text="${item.price}"></td>
             <td>
-                <form th:method="post" th:action="@{'/add/' + ${item.id}}">
+                <form method="post" th:action="@{'/add/' + ${item.id}}">
                     <input type="submit" value="Add to cart"/>
                 </form>
             </td>
@@ -50,8 +50,8 @@
     </thead>
     <tbody>
     <tr th:each="cartItemList : ${cart.cartItemList}">
-        <td th:text="${cartItemList.id}>"</td>
-        <td th:text="${cartItemList.name}"></td>
+        <td th:text="${cartItemList.item.id}"></td>
+        <td th:text="${cartItemList.item.name}"></td>
         <td th:text="${cartItemList.quantity}"></td>
     </tr>
     </tbody>

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -19,5 +20,6 @@ public class Cart {
 
     public Cart(String id) {
         this.id = id;
+        this.cartItemList = new ArrayList<>();
     }
 }
