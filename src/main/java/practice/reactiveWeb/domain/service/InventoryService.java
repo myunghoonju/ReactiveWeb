@@ -94,4 +94,23 @@ public class InventoryService {
                 .flatMap(cart -> cartRepository.save(cart))
                 .log("saved cart");
     }
+
+    public Mono<Cart> addItemToCartBlockingCall(String cartId, String itemId) {
+        Cart myCart = cartRepository.findById(cartId).defaultIfEmpty(new Cart(cartId)).block();
+
+        return myCart.getCartItemList().stream()
+                .filter(cartItem -> cartItem.getItem().getId().equals(itemId))
+                .findAny()
+                .map(cartItem -> {
+                    cartItem.increment();
+                    return Mono.just(myCart);
+                })
+                .orElseGet(() -> itemRepository.findById(itemId)
+                            .map(item -> new CartItem(item))
+                            .map(cartItem -> {
+                                myCart.getCartItemList().add(cartItem);
+                                return myCart;
+                }))
+                .flatMap(cart -> cartRepository.save(cart));
+    }
 }
