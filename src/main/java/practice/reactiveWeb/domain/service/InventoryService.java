@@ -28,6 +28,14 @@ public class InventoryService {
     private final ReactiveFluentMongoOperations fluentMongoOperations;
     private final CartRepository cartRepository;
 
+    public Flux<Item> getInventory() {
+        return itemRepository.findAll();
+    }
+
+    public Mono<Cart> getCart(String cartId) {
+        return cartRepository.findById(cartId).defaultIfEmpty(new Cart("My Cart"));
+    }
+
     public Flux<Item> searchByExample(String name, String description, boolean useAnd) {
         Item item = new Item(name, description, 0.0);
         ExampleMatcher matcher = (useAnd ? matchingAll() : matchingAny())
@@ -54,6 +62,10 @@ public class InventoryService {
     public Flux<Item> searchByFluentExample(String name, String description) {
         return fluentMongoOperations.query(Item.class)
                                     .matching(query(where("tv tray").is(name).and("Smurf").is(description))).all();
+    }
+
+    public Mono<Cart> searchCart() {
+        return cartRepository.findById("My Cart").defaultIfEmpty(new Cart("My Cart"));
     }
 
     public Mono<Cart> addItemToCart(String cartId, String itemId) {

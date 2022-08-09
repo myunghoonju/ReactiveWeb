@@ -7,10 +7,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.reactive.result.view.Rendering;
-import practice.reactiveWeb.domain.entity.Cart;
-import practice.reactiveWeb.domain.repository.CartRepository;
-import practice.reactiveWeb.domain.repository.ItemRepository;
-import practice.reactiveWeb.domain.service.CartService;
 import practice.reactiveWeb.domain.service.InventoryService;
 import reactor.core.publisher.Mono;
 
@@ -18,21 +14,14 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class HomeController {
 
-    private final CartService cartService;
-    //FIXME no service code!
-    private final ItemRepository itemRepository;
-    private final CartRepository cartRepository;
     private final InventoryService inventoryService;
 
-
-    //FIXME no service code!
     @GetMapping("/")
     Mono<Rendering> home() {
         Mono<Rendering> result = Mono.just(Rendering
                 .view("home.html")
-                .modelAttribute("items", itemRepository.findAll())
-                .modelAttribute("cart", cartRepository.findById("My Cart")
-                        .defaultIfEmpty(new Cart("My Cart")))
+                .modelAttribute("items", inventoryService.getInventory())
+                .modelAttribute("cart", inventoryService.getCart("My Cart"))
                 .build());
 
         return result;
@@ -47,8 +36,7 @@ public class HomeController {
      */
     @PostMapping("/add/{id}")
     Mono<String> addToCart(@PathVariable String id) {
-        return inventoryService.addItemToCart("My Cart", id)
-                .thenReturn("redirect:/");
+        return inventoryService.addItemToCart("My Cart", id).thenReturn("redirect:/");
     }
 
     @GetMapping("/search")
@@ -57,7 +45,7 @@ public class HomeController {
                            @RequestParam boolean useAnd) {
         return Mono.just(Rendering.view("home.html")
                 .modelAttribute("items", inventoryService.searchByExample(name, description, useAnd))
-                .modelAttribute("cart", cartRepository.findById("My Cart").defaultIfEmpty(new Cart("My Cart")))
+                .modelAttribute("cart", inventoryService.searchCart())
                 .build());
     }
 }
