@@ -1,0 +1,11 @@
+Use below!
+
+include::{snippets}/findAll/curl-request.adoc[]
+
+ApiItemController will response.
+
+include::{snippets}/findAll/response-body.adoc[]
+
+For HTTPie...
+
+include::{snippets}/findAll/httpie-request.adoc[]

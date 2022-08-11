@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import practice.reactiveWeb.domain.entity.Item;
 import practice.reactiveWeb.domain.repository.ItemRepository;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.net.URI;
@@ -19,6 +20,11 @@ import java.net.URI;
 public class ApiItemController {
 
     private final ItemRepository itemRepository;
+
+    @GetMapping("/api/items")
+    Flux<Item> findAll() {
+        return itemRepository.findAll();
+    }
 
     @GetMapping("/api/items/{id}")
     Mono<Item> findOne(@PathVariable String id) {

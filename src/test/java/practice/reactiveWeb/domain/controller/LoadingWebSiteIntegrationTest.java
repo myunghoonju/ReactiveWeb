@@ -9,11 +9,6 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-/**
- *  comment-out due to blockHound
- *
- * */
-/*
 
 @AutoConfigureWebTestClient
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -34,5 +29,3 @@ public class LoadingWebSiteIntegrationTest {
                 });
     }
 }
-*/
-

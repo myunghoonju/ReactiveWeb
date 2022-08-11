@@ -53,7 +53,7 @@ public class BlockHoundIntegrationTest {
         //then
         inventoryService = new InventoryService(itemRepository, fluentMongoOperations, cartRepository);
     }
-
+/*
 
     @Test
     void blocHoundShouldTrapBlockingCall() {
@@ -64,5 +64,5 @@ public class BlockHoundIntegrationTest {
                     Assertions.<Throwable>assertThat(throwable).hasMessageContaining(
                             "block()/blockFirst()/blockLast() are blocking");
                 });
-    }
+    }*/
 }
