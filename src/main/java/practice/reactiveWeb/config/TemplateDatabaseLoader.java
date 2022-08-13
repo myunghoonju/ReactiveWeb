@@ -1,3 +1,4 @@
+/*
 package practice.reactiveWeb;
 
 import org.springframework.boot.CommandLineRunner;
@@ -17,3 +18,4 @@ public class TemplateDatabaseLoader {
         };
     }
 }
+*/

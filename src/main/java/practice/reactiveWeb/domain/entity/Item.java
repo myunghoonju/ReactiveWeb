@@ -2,6 +2,7 @@ package practice.reactiveWeb.domain.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.geo.Point;
 
@@ -46,5 +47,14 @@ public class Item {
         this.name = name;
         this.description = description;
         this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "item contents::"
+                + " id = " + id
+                + " name = " + name
+                + " price = " + price
+                + " description = " + description;
     }
 }
