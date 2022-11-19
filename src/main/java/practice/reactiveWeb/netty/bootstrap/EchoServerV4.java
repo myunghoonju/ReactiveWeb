@@ -8,6 +8,8 @@ import io.netty.channel.ChannelPipeline;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import practice.reactiveWeb.netty.pipeLine.EchoServerHandlerV1;
+import practice.reactiveWeb.netty.pipeLine.EchoServerHandlerV2;
 
 public class EchoServerV4 {
     public static void main(String[] args) throws Exception {
@@ -23,7 +25,8 @@ public class EchoServerV4 {
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
                             ChannelPipeline pipeline = ch.pipeline();
-                            pipeline.addLast(new EchoServerHandler());
+                            pipeline.addLast(new EchoServerHandlerV1());
+                            pipeline.addLast(new EchoServerHandlerV2());
                         }
                     });
 
