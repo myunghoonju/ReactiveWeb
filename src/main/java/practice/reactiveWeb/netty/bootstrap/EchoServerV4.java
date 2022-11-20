@@ -10,6 +10,7 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import practice.reactiveWeb.netty.pipeLine.EchoServerHandlerV1;
 import practice.reactiveWeb.netty.pipeLine.EchoServerHandlerV2;
+import practice.reactiveWeb.netty.pipeLine.EchoServerHandlerV3;
 
 public class EchoServerV4 {
     public static void main(String[] args) throws Exception {
@@ -27,6 +28,7 @@ public class EchoServerV4 {
                             ChannelPipeline pipeline = ch.pipeline();
                             pipeline.addLast(new EchoServerHandlerV1());
                             pipeline.addLast(new EchoServerHandlerV2());
+                            pipeline.addLast(new EchoServerHandlerV3());
                         }
                     });
 
